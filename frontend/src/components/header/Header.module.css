@@ -1,0 +1,31 @@
+.headerContainer {
+  width: 100%;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon {
+  color: #ff6b6b;
+  font-size: 1.8rem;
+}
+
+.title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.divider {
+  width: 100%;
+  margin-top: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
