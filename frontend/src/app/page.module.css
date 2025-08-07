@@ -2,4 +2,51 @@
   background-color: #000000;
   min-height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.mainBox {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.mainBoxTitle {
+  color: #ffffff;
+  font-family: var(--font-poppins);
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.mainBoxSubtitle {
+  color: #a1a1aa;
+  font-family: var(--font-inter);
+}
+
+.inputBox {
+  margin: 2rem 0;
+}
+
+.primaryButton {
+  background-color: #f66 !important;
+  color: #ffffff !important;
+  width: 100%;
+  border-radius: 0.5rem !important;
+  text-transform: none !important;
+  font-family: var(--font-inter) !important;
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+.primaryButton:hover {
+  background-color: #e05c5c !important;
 }
