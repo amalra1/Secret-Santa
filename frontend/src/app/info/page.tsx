@@ -1,24 +1,46 @@
 'use client';
 
 import { useState } from 'react';
-
 import styles from './page.module.css';
 import Header from '@/components/header/Header';
-import { Box, Button } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
 import TextInput from '@/components/textInput/TextInput';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CustomAlert from '@/components/customAlert/CustomAlert';
 
 export default function HomePage() {
+  const [participants, setParticipants] = useState([
+    { id: Date.now(), name: '', email: '' },
+  ]);
+
   const [alertInfo, setAlertInfo] = useState({
     open: false,
     message: '',
     severity: 'success' as 'success' | 'error',
   });
 
-  const handleSendEmails = () => {
-    console.log('Sending emails...');
+  const handleAddParticipant = () => {
+    setParticipants([...participants, { id: Date.now(), name: '', email: '' }]);
+  };
 
+  const handleRemoveParticipant = (id: number) => {
+    const newParticipants = participants.filter((p) => p.id !== id);
+    setParticipants(newParticipants);
+  };
+
+  const handleParticipantChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newParticipants = [...participants];
+    newParticipants[index][event.target.name as 'name' | 'email'] =
+      event.target.value;
+    setParticipants(newParticipants);
+  };
+
+  const handleSendEmails = () => {
+    console.log('Sending emails to:', participants);
     setAlertInfo({
       open: true,
       message: 'Emails sent to all participants',
@@ -50,33 +72,49 @@ export default function HomePage() {
           <div className={styles.mainBoxInputBoxesTitle}>Participants</div>
 
           <div className={styles.inputBoxes}>
-            <div className={styles.inputBoxesRow}>
-              <div>
-                <TextInput
-                  label="Name"
-                  id="name"
-                  name="name"
-                  placeholder="Participant's name"
-                  type="text"
-                />
-              </div>
+            {participants.map((participant, index) => (
+              <div key={participant.id} className={styles.inputBoxesRow}>
+                <div className={styles.inputWrapper}>
+                  <TextInput
+                    label="Name"
+                    name="name"
+                    placeholder="Participant's name"
+                    value={participant.name}
+                    onChange={(e) => handleParticipantChange(index, e)}
+                  />
+                </div>
+                <div className={styles.inputWrapper}>
+                  <TextInput
+                    label="Email"
+                    name="email"
+                    placeholder="Participant's email"
+                    value={participant.email}
+                    onChange={(e) => handleParticipantChange(index, e)}
+                  />
+                </div>
 
-              <div>
-                <TextInput
-                  label="Email"
-                  id="email"
-                  name="email"
-                  placeholder="Participant's email"
-                  type="text"
-                />
+                {participants.length > 1 && (
+                  <IconButton
+                    className={styles.deleteButton}
+                    onClick={() => handleRemoveParticipant(participant.id)}
+                    aria-label="delete participant"
+                  >
+                    <DeleteOutlineIcon />
+                  </IconButton>
+                )}
               </div>
-            </div>
+            ))}
           </div>
 
           <div className={styles.divider}></div>
 
           <div className={styles.actionsContainer}>
-            <Button className={styles.secondaryButton}>Add Participant</Button>
+            <Button
+              className={styles.secondaryButton}
+              onClick={handleAddParticipant}
+            >
+              Add Participant
+            </Button>
             <Button
               className={styles.primaryButton}
               startIcon={<EmailOutlinedIcon />}
