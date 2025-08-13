@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, useState, useContext, ReactNode } from 'react';
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from 'react';
 
 interface GroupContextType {
   groupName: string;
@@ -10,7 +16,21 @@ interface GroupContextType {
 const GroupContext = createContext<GroupContextType | undefined>(undefined);
 
 export function GroupProvider({ children }: { children: ReactNode }) {
-  const [groupName, setGroupName] = useState('');
+  const [groupName, setGroupNameState] = useState('');
+
+  useEffect(() => {
+    const savedName = localStorage.getItem('secretSantaGroupName');
+    if (savedName) {
+      setGroupNameState(savedName);
+    }
+  }, []);
+
+  const setGroupName = (name: string) => {
+    setGroupNameState(name);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('secretSantaGroupName', name);
+    }
+  };
 
   return (
     <GroupContext.Provider value={{ groupName, setGroupName }}>
