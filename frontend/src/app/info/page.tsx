@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useGroup } from '@/contexts/GroupContext';
 import styles from './page.module.css';
 import Header from '@/components/header/Header';
 import { Box, Button, IconButton } from '@mui/material';
@@ -9,24 +10,41 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CustomAlert from '@/components/customAlert/CustomAlert';
 
-export default function HomePage() {
-  const [participants, setParticipants] = useState([
-    { id: Date.now(), name: '', email: '' },
+type Participant = {
+  id: number;
+  name: string;
+  email: string;
+  error: string | null;
+};
+
+const validateEmail = (email: string) => {
+  if (!email) return false;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+export default function InfoPage() {
+  const { groupName } = useGroup();
+
+  const [participants, setParticipants] = useState<Participant[]>([
+    { id: Date.now(), name: '', email: '', error: null },
   ]);
 
   const [alertInfo, setAlertInfo] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: 'success' as 'success' | 'error' | 'info' | 'warning',
   });
 
   const handleAddParticipant = () => {
-    setParticipants([...participants, { id: Date.now(), name: '', email: '' }]);
+    setParticipants([
+      ...participants,
+      { id: Date.now(), name: '', email: '', error: null },
+    ]);
   };
 
   const handleRemoveParticipant = (id: number) => {
-    const newParticipants = participants.filter((p) => p.id !== id);
-    setParticipants(newParticipants);
+    setParticipants(participants.filter((p) => p.id !== id));
   };
 
   const handleParticipantChange = (
@@ -34,19 +52,49 @@ export default function HomePage() {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newParticipants = [...participants];
-    newParticipants[index][event.target.name as 'name' | 'email'] =
-      event.target.value;
+    const participant = newParticipants[index];
+    participant[event.target.name as 'name' | 'email'] = event.target.value;
+    
+    if (event.target.name === 'email') {
+      participant.error = null;
+    }
+
+    setParticipants(newParticipants);
+  };
+
+  const handleEmailBlur = (index: number) => {
+    const newParticipants = [...participants];
+    const participant = newParticipants[index];
+    
+    if (!validateEmail(participant.email)) {
+      participant.error = "Please enter a valid email format.";
+    } else {
+      participant.error = null;
+    }
     setParticipants(newParticipants);
   };
 
   const handleSendEmails = () => {
-    console.log('Sending emails to:', participants);
-    setAlertInfo({
-      open: true,
-      message: 'Emails sent to all participants',
-      severity: 'success',
+    let isFormValid = true;
+    const updatedParticipants = participants.map(p => {
+      if (!validateEmail(p.email)) {
+        isFormValid = false;
+        return { ...p, error: "Please enter a valid email format." };
+      }
+      return p;
     });
+    setParticipants(updatedParticipants);
+
+    if (!isFormValid) {
+      setAlertInfo({ open: true, message: 'Please correct the invalid fields.', severity: 'error' });
+      return;
+    }
+
+    console.log('Sending emails to:', participants);
+    setAlertInfo({ open: true, message: 'Emails sent to all participants', severity: 'success' });
   };
+
+  const isSendButtonDisabled = participants.some(p => !p.name || !p.email);
 
   return (
     <main className={styles.main}>
@@ -60,17 +108,17 @@ export default function HomePage() {
           className={styles.alertBox}
         />
         <Box className={styles.mainBox}>
-          <div className={styles.mainBoxTitle}>New Group</div>
+          <div className={styles.mainBoxTitle}>
+            {groupName || 'New Group'}
+          </div>
           <div className={styles.mainBoxSubtitle}>
-            Enter every participant's name and email
+            Enter every participant&apos;s name and email
           </div>
           <div className={styles.mainBoxDescription}>
             Each participant will receive by email the name of the sorted friend
             to gift!
           </div>
-
           <div className={styles.mainBoxInputBoxesTitle}>Participants</div>
-
           <div className={styles.inputBoxes}>
             {participants.map((participant, index) => (
               <div key={participant.id} className={styles.inputBoxesRow}>
@@ -90,9 +138,10 @@ export default function HomePage() {
                     placeholder="Participant's email"
                     value={participant.email}
                     onChange={(e) => handleParticipantChange(index, e)}
+                    onBlur={() => handleEmailBlur(index)}
+                    error={participant.error}
                   />
                 </div>
-
                 {participants.length > 1 && (
                   <IconButton
                     className={styles.deleteButton}
@@ -105,9 +154,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-
           <div className={styles.divider}></div>
-
           <div className={styles.actionsContainer}>
             <Button
               className={styles.secondaryButton}
@@ -119,6 +166,7 @@ export default function HomePage() {
               className={styles.primaryButton}
               startIcon={<EmailOutlinedIcon />}
               onClick={handleSendEmails}
+              disabled={isSendButtonDisabled}
             >
               Send Emails
             </Button>

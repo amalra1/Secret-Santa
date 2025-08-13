@@ -1,9 +1,21 @@
+'use client';
+
+import { useGroup } from '@/contexts/GroupContext';
+import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import Header from '@/components/header/Header';
 import { Box, Button } from '@mui/material';
 import TextInput from '@/components/textInput/TextInput';
 
 export default function HomePage() {
+  const router = useRouter();
+  const { groupName, setGroupName } = useGroup();
+
+  const handleProceed = () => {
+    sessionStorage.setItem('groupName', groupName);
+    router.push('/info');
+  };
+
   return (
     <main className={styles.main}>
       <Header />
@@ -21,10 +33,18 @@ export default function HomePage() {
               name="groupName"
               placeholder="Ex: Silva Family"
               type="text"
+              value={groupName}
+              onChange={(e) => setGroupName(e.target.value)}
             />
           </div>
 
-          <Button className={styles.primaryButton}>Proceed</Button>
+          <Button 
+            className={styles.primaryButton} 
+            onClick={handleProceed}
+            disabled={!groupName}
+          >
+            Proceed
+          </Button>
         </Box>
       </div>
     </main>
