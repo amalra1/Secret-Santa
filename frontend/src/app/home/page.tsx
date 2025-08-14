@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useGroup } from '@/contexts/GroupContext';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
@@ -11,10 +12,27 @@ export default function HomePage() {
   const router = useRouter();
   const { groupName, setGroupName } = useGroup();
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleProceed = () => {
-    sessionStorage.setItem('groupName', groupName);
-    router.push('/info');
+    if (!error) {
+      router.push('/info');
+    }
   };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    if (value.length > 40) {
+      setError('Group name cannot exceed 40 characters.');
+    } else {
+      setError(null);
+    }
+
+    setGroupName(value);
+  };
+
+  const isButtonDisabled = !groupName || !!error;
 
   return (
     <main className={styles.main}>
@@ -34,14 +52,15 @@ export default function HomePage() {
               placeholder="Ex: Silva Family"
               type="text"
               value={groupName}
-              onChange={(e) => setGroupName(e.target.value)}
+              onChange={handleNameChange} 
+              error={error}
             />
           </div>
 
-          <Button 
-            className={styles.primaryButton} 
+          <Button
+            className={styles.primaryButton}
             onClick={handleProceed}
-            disabled={!groupName}
+            disabled={isButtonDisabled}
           >
             Proceed
           </Button>

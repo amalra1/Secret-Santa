@@ -50,3 +50,11 @@
 .primaryButton:hover {
   background-color: #e05c5c !important;
 }
+
+.primaryButton:disabled {
+  background-color: #52525b !important;
+  color: #a1a1aa !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
