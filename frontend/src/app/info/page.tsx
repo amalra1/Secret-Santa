@@ -20,6 +20,7 @@ export default function InfoPage() {
     handleAddParticipant,
     handleRemoveParticipant,
     handleParticipantChange,
+    handleNameBlur,
     handleEmailBlur,
     validateEmail,
   } = useParticipants();
@@ -32,19 +33,45 @@ export default function InfoPage() {
 
   const handleSendEmails = () => {
     let isFormValid = true;
-    const updatedParticipants = participants.map((p) => {
-      if (!validateEmail(p.email)) {
-        isFormValid = false;
-        return { ...p, error: 'Please enter a valid email format.' };
-      }
-      return p;
+    const nameCounts: { [key: string]: number } = {};
+    const emailCounts: { [key: string]: number } = {};
+
+    participants.forEach((p) => {
+      const trimmedName = p.name.trim().toLowerCase();
+      const trimmedEmail = p.email.trim().toLowerCase();
+      if (trimmedName)
+        nameCounts[trimmedName] = (nameCounts[trimmedName] || 0) + 1;
+      if (trimmedEmail)
+        emailCounts[trimmedEmail] = (emailCounts[trimmedEmail] || 0) + 1;
     });
+
+    const updatedParticipants = participants.map((p) => {
+      const trimmedName = p.name.trim().toLowerCase();
+      const trimmedEmail = p.email.trim().toLowerCase();
+      const errors: { name: string | null; email: string | null } = {
+        name: null,
+        email: null,
+      };
+
+      if (nameCounts[trimmedName] > 1) {
+        errors.name = 'This name is already in the list.';
+      }
+      if (!validateEmail(p.email)) {
+        errors.email = 'Please enter a valid email format.';
+      } else if (emailCounts[trimmedEmail] > 1) {
+        errors.email = 'This email is already in the list.';
+      }
+
+      if (errors.name || errors.email) isFormValid = false;
+      return { ...p, errors };
+    });
+
     setParticipants(updatedParticipants);
 
     if (!isFormValid) {
       setAlertInfo({
         open: true,
-        message: 'Please correct the invalid fields.',
+        message: 'Please correct the fields with errors.',
         severity: 'error',
       });
       return;
@@ -58,11 +85,12 @@ export default function InfoPage() {
     });
   };
 
-  const isSendButtonDisabled = participants.some((p) => !p.name || !p.email);
+  const isSendButtonDisabled = participants.some(
+    (p) => !p.name || !p.email || p.errors.name || p.errors.email,
+  );
 
   return (
     <main className={styles.main}>
-      <Header />
       <div className={styles.content}>
         <CustomAlert
           open={alertInfo.open}
@@ -81,7 +109,6 @@ export default function InfoPage() {
             to gift!
           </div>
           <div className={styles.mainBoxInputBoxesTitle}>Participants</div>
-
           <div className={styles.inputBoxes}>
             {participants.map((participant, index) => (
               <div key={participant.id} className={styles.inputBoxesRow}>
@@ -93,6 +120,8 @@ export default function InfoPage() {
                     maxLength={100}
                     value={participant.name}
                     onChange={(e) => handleParticipantChange(index, e)}
+                    onBlur={() => handleNameBlur(index)}
+                    error={participant.errors.name}
                   />
                 </div>
                 <div className={styles.inputWrapper}>
@@ -104,7 +133,7 @@ export default function InfoPage() {
                     value={participant.email}
                     onChange={(e) => handleParticipantChange(index, e)}
                     onBlur={() => handleEmailBlur(index)}
-                    error={participant.error}
+                    error={participant.errors.email}
                   />
                 </div>
                 {participants.length > 1 && (
@@ -119,7 +148,6 @@ export default function InfoPage() {
               </div>
             ))}
           </div>
-
           <div className={styles.divider}></div>
           <div className={styles.actionsContainer}>
             <Button

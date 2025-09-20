@@ -6,7 +6,10 @@ type Participant = {
   id: number;
   name: string;
   email: string;
-  error: string | null;
+  errors: {
+    name: string | null;
+    email: string | null;
+  };
 };
 
 const validateEmail = (email: string) => {
@@ -17,13 +20,23 @@ const validateEmail = (email: string) => {
 
 export function useParticipants() {
   const [participants, setParticipants] = useState<Participant[]>([
-    { id: Date.now(), name: '', email: '', error: null },
+    {
+      id: Date.now(),
+      name: '',
+      email: '',
+      errors: { name: null, email: null },
+    },
   ]);
 
   const handleAddParticipant = () => {
     setParticipants((prev) => [
       ...prev,
-      { id: Date.now(), name: '', email: '', error: null },
+      {
+        id: Date.now(),
+        name: '',
+        email: '',
+        errors: { name: null, email: null },
+      },
     ]);
   };
 
@@ -37,23 +50,59 @@ export function useParticipants() {
   ) => {
     const newParticipants = [...participants];
     const participant = newParticipants[index];
-    participant[event.target.name as 'name' | 'email'] = event.target.value;
+    const fieldName = event.target.name as 'name' | 'email';
 
-    if (event.target.name === 'email') {
-      participant.error = null;
+    participant[fieldName] = event.target.value;
+    participant.errors[fieldName] = null;
+
+    setParticipants(newParticipants);
+  };
+
+  const handleNameBlur = (index: number) => {
+    const newParticipants = [...participants];
+    const participant = newParticipants[index];
+    const trimmedName = participant.name.trim();
+
+    if (trimmedName === '') {
+      participant.errors.name = null;
+      setParticipants(newParticipants);
+      return;
     }
 
+    const isDuplicate = participants.some(
+      (p, i) =>
+        i !== index &&
+        p.name.trim().toLowerCase() === trimmedName.toLowerCase(),
+    );
+
+    participant.errors.name = isDuplicate
+      ? 'This name is already in the list.'
+      : null;
     setParticipants(newParticipants);
   };
 
   const handleEmailBlur = (index: number) => {
     const newParticipants = [...participants];
     const participant = newParticipants[index];
+    const trimmedEmail = participant.email.trim();
 
-    if (!validateEmail(participant.email)) {
-      participant.error = 'Please enter a valid email format.';
+    if (trimmedEmail === '') {
+      participant.errors.email = null;
+      setParticipants(newParticipants);
+      return;
+    }
+
+    if (!validateEmail(trimmedEmail)) {
+      participant.errors.email = 'Please enter a valid email format.';
     } else {
-      participant.error = null;
+      const isDuplicate = participants.some(
+        (p, i) =>
+          i !== index &&
+          p.email.trim().toLowerCase() === trimmedEmail.toLowerCase(),
+      );
+      participant.errors.email = isDuplicate
+        ? 'This email is already in the list.'
+        : null;
     }
     setParticipants(newParticipants);
   };
@@ -64,6 +113,7 @@ export function useParticipants() {
     handleAddParticipant,
     handleRemoveParticipant,
     handleParticipantChange,
+    handleNameBlur,
     handleEmailBlur,
     validateEmail,
   };
