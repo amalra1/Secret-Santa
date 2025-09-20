@@ -1,21 +1,11 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Inter } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import ThemeRegistry from '@/components/themeRegistry/ThemeRegistry';
 import { GroupProvider } from '@/contexts/GroupContext';
 import { poppins } from './fonts';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: 'Secret Santa',
