@@ -9,26 +9,20 @@ import TextInput from '@/components/textInput/TextInput';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CustomAlert from '@/components/customAlert/CustomAlert';
-
-type Participant = {
-  id: number;
-  name: string;
-  email: string;
-  error: string | null;
-};
-
-const validateEmail = (email: string) => {
-  if (!email) return false;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
+import { useParticipants } from '@/hooks/useParticipants';
 
 export default function InfoPage() {
   const { groupName } = useGroup();
 
-  const [participants, setParticipants] = useState<Participant[]>([
-    { id: Date.now(), name: '', email: '', error: null },
-  ]);
+  const {
+    participants,
+    setParticipants,
+    handleAddParticipant,
+    handleRemoveParticipant,
+    handleParticipantChange,
+    handleEmailBlur,
+    validateEmail,
+  } = useParticipants();
 
   const [alertInfo, setAlertInfo] = useState({
     open: false,
@@ -36,65 +30,35 @@ export default function InfoPage() {
     severity: 'success' as 'success' | 'error' | 'info' | 'warning',
   });
 
-  const handleAddParticipant = () => {
-    setParticipants([
-      ...participants,
-      { id: Date.now(), name: '', email: '', error: null },
-    ]);
-  };
-
-  const handleRemoveParticipant = (id: number) => {
-    setParticipants(participants.filter((p) => p.id !== id));
-  };
-
-  const handleParticipantChange = (
-    index: number,
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const newParticipants = [...participants];
-    const participant = newParticipants[index];
-    participant[event.target.name as 'name' | 'email'] = event.target.value;
-    
-    if (event.target.name === 'email') {
-      participant.error = null;
-    }
-
-    setParticipants(newParticipants);
-  };
-
-  const handleEmailBlur = (index: number) => {
-    const newParticipants = [...participants];
-    const participant = newParticipants[index];
-    
-    if (!validateEmail(participant.email)) {
-      participant.error = "Please enter a valid email format.";
-    } else {
-      participant.error = null;
-    }
-    setParticipants(newParticipants);
-  };
-
   const handleSendEmails = () => {
     let isFormValid = true;
-    const updatedParticipants = participants.map(p => {
+    const updatedParticipants = participants.map((p) => {
       if (!validateEmail(p.email)) {
         isFormValid = false;
-        return { ...p, error: "Please enter a valid email format." };
+        return { ...p, error: 'Please enter a valid email format.' };
       }
       return p;
     });
     setParticipants(updatedParticipants);
 
     if (!isFormValid) {
-      setAlertInfo({ open: true, message: 'Please correct the invalid fields.', severity: 'error' });
+      setAlertInfo({
+        open: true,
+        message: 'Please correct the invalid fields.',
+        severity: 'error',
+      });
       return;
     }
 
     console.log('Sending emails to:', participants);
-    setAlertInfo({ open: true, message: 'Emails sent to all participants', severity: 'success' });
+    setAlertInfo({
+      open: true,
+      message: 'Emails sent to all participants',
+      severity: 'success',
+    });
   };
 
-  const isSendButtonDisabled = participants.some(p => !p.name || !p.email);
+  const isSendButtonDisabled = participants.some((p) => !p.name || !p.email);
 
   return (
     <main className={styles.main}>
@@ -108,9 +72,7 @@ export default function InfoPage() {
           className={styles.alertBox}
         />
         <Box className={styles.mainBox}>
-          <div className={styles.mainBoxTitle}>
-            {groupName || 'New Group'}
-          </div>
+          <div className={styles.mainBoxTitle}>{groupName || 'New Group'}</div>
           <div className={styles.mainBoxSubtitle}>
             Enter every participant&apos;s name and email
           </div>
@@ -119,6 +81,7 @@ export default function InfoPage() {
             to gift!
           </div>
           <div className={styles.mainBoxInputBoxesTitle}>Participants</div>
+
           <div className={styles.inputBoxes}>
             {participants.map((participant, index) => (
               <div key={participant.id} className={styles.inputBoxesRow}>
@@ -154,6 +117,7 @@ export default function InfoPage() {
               </div>
             ))}
           </div>
+
           <div className={styles.divider}></div>
           <div className={styles.actionsContainer}>
             <Button
