@@ -15,10 +15,9 @@ export default function TextInput({ label, error, ...props }: TextInputProps) {
         {label}
       </label>
       <input
-        className={inputClassName} // Usa a classe dinâmica
+        className={inputClassName}
         {...props}
       />
-      {/* 3. Se houver um erro, exibe a mensagem abaixo do input */}
       {error && <span className={styles.errorMessage}>{error}</span>}
     </div>
   );

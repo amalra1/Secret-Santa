@@ -90,6 +90,7 @@ export default function InfoPage() {
                     label="Name"
                     name="name"
                     placeholder="Participant's name"
+                    maxLength={100}
                     value={participant.name}
                     onChange={(e) => handleParticipantChange(index, e)}
                   />
@@ -99,6 +100,7 @@ export default function InfoPage() {
                     label="Email"
                     name="email"
                     placeholder="Participant's email"
+                    maxLength={100}
                     value={participant.email}
                     onChange={(e) => handleParticipantChange(index, e)}
                     onBlur={() => handleEmailBlur(index)}

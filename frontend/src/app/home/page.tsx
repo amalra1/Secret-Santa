@@ -23,8 +23,8 @@ export default function HomePage() {
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    if (value.length > 40) {
-      setError('Group name cannot exceed 40 characters.');
+    if (value.length == 60) {
+      setError('Group name cannot exceed 60 characters.');
     } else {
       setError(null);
     }
@@ -50,6 +50,7 @@ export default function HomePage() {
               id="group-name"
               name="groupName"
               placeholder="Ex: Silva Family"
+              maxLength={60}
               type="text"
               value={groupName}
               onChange={handleNameChange} 
