@@ -91,6 +91,7 @@ export default function InfoPage() {
 
   return (
     <main className={styles.main}>
+      <Header />
       <div className={styles.content}>
         <CustomAlert
           open={alertInfo.open}
