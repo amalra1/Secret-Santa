@@ -2,17 +2,22 @@
 
 import { useState } from 'react';
 import { useGroup } from '@/contexts/GroupContext';
+import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
-import Header from '@/components/header/Header';
 import { Box, Button, IconButton } from '@mui/material';
 import TextInput from '@/components/textInput/TextInput';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CustomAlert from '@/components/customAlert/CustomAlert';
 import { useParticipants } from '@/hooks/useParticipants';
+import Header from '@/components/header/Header';
 
 export default function InfoPage() {
-  const { groupName } = useGroup();
+  const {
+    groupName,
+    setParticipants: setContextParticipants,
+    setDrawResults,
+  } = useGroup();
+  const router = useRouter();
 
   const {
     participants,
@@ -21,8 +26,6 @@ export default function InfoPage() {
     handleRemoveParticipant,
     handleParticipantChange,
     handleNameBlur,
-    handleEmailBlur,
-    validateEmail,
   } = useParticipants();
 
   const [alertInfo, setAlertInfo] = useState({
@@ -31,38 +34,24 @@ export default function InfoPage() {
     severity: 'success' as 'success' | 'error' | 'info' | 'warning',
   });
 
-  const handleSendEmails = () => {
+  const handleStartDraw = () => {
     let isFormValid = true;
     const nameCounts: { [key: string]: number } = {};
-    const emailCounts: { [key: string]: number } = {};
 
     participants.forEach((p) => {
       const trimmedName = p.name.trim().toLowerCase();
-      const trimmedEmail = p.email.trim().toLowerCase();
       if (trimmedName)
         nameCounts[trimmedName] = (nameCounts[trimmedName] || 0) + 1;
-      if (trimmedEmail)
-        emailCounts[trimmedEmail] = (emailCounts[trimmedEmail] || 0) + 1;
     });
 
     const updatedParticipants = participants.map((p) => {
       const trimmedName = p.name.trim().toLowerCase();
-      const trimmedEmail = p.email.trim().toLowerCase();
-      const errors: { name: string | null; email: string | null } = {
-        name: null,
-        email: null,
-      };
+      const errors: { name: string | null } = { name: null };
 
       if (nameCounts[trimmedName] > 1) {
         errors.name = 'This name is already in the list.';
       }
-      if (!validateEmail(p.email)) {
-        errors.email = 'Please enter a valid email format.';
-      } else if (emailCounts[trimmedEmail] > 1) {
-        errors.email = 'This email is already in the list.';
-      }
-
-      if (errors.name || errors.email) isFormValid = false;
+      if (errors.name) isFormValid = false;
       return { ...p, errors };
     });
 
@@ -77,17 +66,39 @@ export default function InfoPage() {
       return;
     }
 
-    console.log('Sending emails to:', participants);
-    setAlertInfo({
-      open: true,
-      message: 'Emails sent to all participants',
-      severity: 'success',
-    });
+    const givers = [...participants];
+    const receivers = [...participants];
+    let validShuffle;
+    do {
+      receivers.sort(() => Math.random() - 0.5);
+      validShuffle = true;
+      for (let i = 0; i < givers.length; i++) {
+        if (givers[i].id === receivers[i].id) {
+          validShuffle = false;
+          break;
+        }
+      }
+    } while (!validShuffle);
+
+    const results = givers.map((giver, index) => ({
+      giver: { id: giver.id, name: giver.name },
+      receiver: {
+        id: receivers[index].id,
+        name: receivers[index].name,
+      },
+    }));
+
+    setContextParticipants(
+      participants.map((p) => ({ id: p.id, name: p.name })),
+    );
+    setDrawResults(results);
+
+    router.push('/draw');
   };
 
-  const isSendButtonDisabled = participants.some(
-    (p) => !p.name || !p.email || p.errors.name || p.errors.email,
-  );
+  const isButtonDisabled =
+    participants.length < 4 ||
+    participants.some((p) => !p.name.trim() || p.errors.name);
 
   return (
     <main className={styles.main}>
@@ -103,13 +114,15 @@ export default function InfoPage() {
         <Box className={styles.mainBox}>
           <div className={styles.mainBoxTitle}>{groupName || 'New Group'}</div>
           <div className={styles.mainBoxSubtitle}>
-            Enter every participant&apos;s name and email
+            Enter every participant&apos;s name (Min 4, Max 20)
           </div>
           <div className={styles.mainBoxDescription}>
-            Each participant will receive by email the name of the sorted friend
-            to gift!
+            When finished, every participant will be able to to reveal its
+            sorted friend
           </div>
-          <div className={styles.mainBoxInputBoxesTitle}>Participants</div>
+          <div className={styles.mainBoxInputBoxesTitle}>
+            Participants ({participants.length} / 20)
+          </div>
           <div className={styles.inputBoxes}>
             {participants.map((participant, index) => (
               <div key={participant.id} className={styles.inputBoxesRow}>
@@ -123,18 +136,6 @@ export default function InfoPage() {
                     onChange={(e) => handleParticipantChange(index, e)}
                     onBlur={() => handleNameBlur(index)}
                     error={participant.errors.name}
-                  />
-                </div>
-                <div className={styles.inputWrapper}>
-                  <TextInput
-                    label="Email"
-                    name="email"
-                    placeholder="Participant's email"
-                    maxLength={100}
-                    value={participant.email}
-                    onChange={(e) => handleParticipantChange(index, e)}
-                    onBlur={() => handleEmailBlur(index)}
-                    error={participant.errors.email}
                   />
                 </div>
                 {participants.length > 1 && (
@@ -154,16 +155,16 @@ export default function InfoPage() {
             <Button
               className={styles.secondaryButton}
               onClick={handleAddParticipant}
+              disabled={participants.length >= 20}
             >
               Add Participant
             </Button>
             <Button
               className={styles.primaryButton}
-              startIcon={<EmailOutlinedIcon />}
-              onClick={handleSendEmails}
-              disabled={isSendButtonDisabled}
+              onClick={handleStartDraw}
+              disabled={isButtonDisabled}
             >
-              Send Emails
+              Start Draw
             </Button>
           </div>
         </Box>

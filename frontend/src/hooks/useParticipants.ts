@@ -5,39 +5,23 @@ import { useState } from 'react';
 type Participant = {
   id: number;
   name: string;
-  email: string;
   errors: {
     name: string | null;
-    email: string | null;
   };
-};
-
-const validateEmail = (email: string) => {
-  if (!email) return false;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
 };
 
 export function useParticipants() {
   const [participants, setParticipants] = useState<Participant[]>([
-    {
-      id: Date.now(),
-      name: '',
-      email: '',
-      errors: { name: null, email: null },
-    },
+    { id: Date.now(), name: '', errors: { name: null } },
   ]);
 
   const handleAddParticipant = () => {
-    setParticipants((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        name: '',
-        email: '',
-        errors: { name: null, email: null },
-      },
-    ]);
+    if (participants.length < 20) {
+      setParticipants((prev) => [
+        ...prev,
+        { id: Date.now(), name: '', errors: { name: null } },
+      ]);
+    }
   };
 
   const handleRemoveParticipant = (id: number) => {
@@ -50,10 +34,9 @@ export function useParticipants() {
   ) => {
     const newParticipants = [...participants];
     const participant = newParticipants[index];
-    const fieldName = event.target.name as 'name' | 'email';
 
-    participant[fieldName] = event.target.value;
-    participant.errors[fieldName] = null;
+    participant.name = event.target.value;
+    participant.errors.name = null;
 
     setParticipants(newParticipants);
   };
@@ -81,32 +64,6 @@ export function useParticipants() {
     setParticipants(newParticipants);
   };
 
-  const handleEmailBlur = (index: number) => {
-    const newParticipants = [...participants];
-    const participant = newParticipants[index];
-    const trimmedEmail = participant.email.trim();
-
-    if (trimmedEmail === '') {
-      participant.errors.email = null;
-      setParticipants(newParticipants);
-      return;
-    }
-
-    if (!validateEmail(trimmedEmail)) {
-      participant.errors.email = 'Please enter a valid email format.';
-    } else {
-      const isDuplicate = participants.some(
-        (p, i) =>
-          i !== index &&
-          p.email.trim().toLowerCase() === trimmedEmail.toLowerCase(),
-      );
-      participant.errors.email = isDuplicate
-        ? 'This email is already in the list.'
-        : null;
-    }
-    setParticipants(newParticipants);
-  };
-
   return {
     participants,
     setParticipants,
@@ -114,7 +71,5 @@ export function useParticipants() {
     handleRemoveParticipant,
     handleParticipantChange,
     handleNameBlur,
-    handleEmailBlur,
-    validateEmail,
   };
 }

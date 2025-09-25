@@ -1,39 +1,44 @@
 'use client';
 
-import {
-  createContext,
-  useState,
-  useContext,
-  ReactNode,
-  useEffect,
-} from 'react';
+import { createContext, useState, useContext, ReactNode } from 'react';
+
+export interface Participant {
+  id: number;
+  name: string;
+}
+
+export interface DrawResult {
+  giver: Participant;
+  receiver: Participant;
+}
 
 interface GroupContextType {
   groupName: string;
   setGroupName: (name: string) => void;
+  participants: Participant[];
+  setParticipants: (participants: Participant[]) => void;
+  drawResults: DrawResult[];
+  setDrawResults: (results: DrawResult[]) => void;
 }
 
 const GroupContext = createContext<GroupContextType | undefined>(undefined);
 
 export function GroupProvider({ children }: { children: ReactNode }) {
-  const [groupName, setGroupNameState] = useState('');
-
-  useEffect(() => {
-    const savedName = localStorage.getItem('secretSantaGroupName');
-    if (savedName) {
-      setGroupNameState(savedName);
-    }
-  }, []);
-
-  const setGroupName = (name: string) => {
-    setGroupNameState(name);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('secretSantaGroupName', name);
-    }
-  };
+  const [groupName, setGroupName] = useState('');
+  const [participants, setParticipants] = useState<Participant[]>([]);
+  const [drawResults, setDrawResults] = useState<DrawResult[]>([]);
 
   return (
-    <GroupContext.Provider value={{ groupName, setGroupName }}>
+    <GroupContext.Provider
+      value={{
+        groupName,
+        setGroupName,
+        participants,
+        setParticipants,
+        drawResults,
+        setDrawResults,
+      }}
+    >
       {children}
     </GroupContext.Provider>
   );
