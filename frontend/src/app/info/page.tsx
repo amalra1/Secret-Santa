@@ -131,7 +131,7 @@ export default function InfoPage() {
                     label="Name"
                     name="name"
                     placeholder="Participant's name"
-                    maxLength={100}
+                    maxLength={30}
                     value={participant.name}
                     onChange={(e) => handleParticipantChange(index, e)}
                     onBlur={() => handleNameBlur(index)}
