@@ -1,0 +1,125 @@
+.main {
+  background-color: #000000;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+.mainBox {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 2rem 3rem;
+  width: 100%;
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.mainBoxTitle {
+  color: #ffffff;
+  font-family: var(--font-poppins);
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.drawInstruction {
+  color: #ededed;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.giverName {
+  color: #f66;
+  font-weight: bold;
+}
+
+.drawSubInstruction {
+  color: #a1a1aa;
+  font-family: var(--font-inter);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.revealContainer {
+  margin: 2rem 0;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.revealedName {
+  border: 2px dashed #f66;
+  border-radius: 0.5rem;
+  padding: 1.5rem 3rem;
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: var(--font-poppins);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.drawActionsContainer {
+  margin-top: 1rem;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.baseButton {
+  border-radius: 0.5rem !important;
+  text-transform: none !important;
+  font-family: var(--font-inter) !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease-in-out !important;
+  padding: 0.6rem 1.2rem !important;
+}
+
+.primaryButton {
+  composes: baseButton;
+  background-color: #f66 !important;
+  color: #ffffff !important;
+}
+
+.primaryButton:hover {
+  background-color: #e05c5c !important;
+}
+
+.secondaryButton {
+  composes: baseButton;
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.secondaryButton:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
