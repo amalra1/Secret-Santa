@@ -20,13 +20,7 @@
 .mainBox {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
-  padding: 2rem 3rem;
-  width: 100%;
-  max-width: 40rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  padding: 1rem;
 }
 
 .mainBoxTitle {
@@ -34,13 +28,11 @@
   font-family: var(--font-poppins);
   font-size: 2rem;
   font-weight: 500;
-  margin-bottom: 2rem;
 }
 
 .drawInstruction {
   color: #ededed;
   font-size: 1.2rem;
-  line-height: 1.6;
 }
 
 .giverName {
@@ -56,8 +48,7 @@
 }
 
 .revealContainer {
-  margin: 2rem 0;
-  min-height: 120px;
+  margin: 1rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
