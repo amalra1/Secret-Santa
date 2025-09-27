@@ -10,22 +10,30 @@ type Participant = {
   };
 };
 
+const createEmptyParticipant = (): Participant => ({
+  id: Date.now() + Math.random(),
+  name: '',
+  errors: { name: null },
+});
+
 export function useParticipants() {
   const [participants, setParticipants] = useState<Participant[]>([
-    { id: Date.now(), name: '', errors: { name: null } },
+    createEmptyParticipant(),
+    createEmptyParticipant(),
+    createEmptyParticipant(),
+    createEmptyParticipant(),
   ]);
 
   const handleAddParticipant = () => {
     if (participants.length < 20) {
-      setParticipants((prev) => [
-        ...prev,
-        { id: Date.now(), name: '', errors: { name: null } },
-      ]);
+      setParticipants((prev) => [...prev, createEmptyParticipant()]);
     }
   };
 
   const handleRemoveParticipant = (id: number) => {
-    setParticipants((prev) => prev.filter((p) => p.id !== id));
+    if (participants.length > 4) {
+      setParticipants((prev) => prev.filter((p) => p.id !== id));
+    }
   };
 
   const handleParticipantChange = (

@@ -138,7 +138,7 @@ export default function InfoPage() {
                     error={participant.errors.name}
                   />
                 </div>
-                {participants.length > 1 && (
+                {participants.length > 4 && (
                   <IconButton
                     className={styles.deleteButton}
                     onClick={() => handleRemoveParticipant(participant.id)}
