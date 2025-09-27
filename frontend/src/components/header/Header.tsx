@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function Header() {
   return (
     <header className={styles.headerContainer}>
-      <Link href="/home" className={styles.logoLink}>
+      <Link href="/" className={styles.logoLink}>
         <div className={styles.content}>
           <CardGiftcardIcon className={styles.icon} />
           <h1 className={styles.title}>SecretSanta</h1>

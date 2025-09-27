@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import Header from '@/components/header/Header';
 import { Box, Button } from '@mui/material';
-import RedoIcon from '@mui/icons-material/Redo';
 
 export default function DrawPage() {
   const {
@@ -24,7 +23,7 @@ export default function DrawPage() {
 
   useEffect(() => {
     if (drawResults.length === 0) {
-      router.push('/home');
+      router.push('/');
     }
   }, [drawResults, router]);
 
@@ -57,7 +56,7 @@ export default function DrawPage() {
     setGroupName('');
     setParticipants([]);
     setDrawResults([]);
-    router.push('/home');
+    router.push('/');
   };
 
   return (
