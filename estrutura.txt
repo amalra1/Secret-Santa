@@ -1,0 +1,44 @@
+.
+├── README.md
+├── eslint.config.mjs
+├── estrutura.txt
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── src
+│   ├── app
+│   │   ├── favicon.ico
+│   │   ├── fonts.ts
+│   │   ├── globals.css
+│   │   ├── home
+│   │   │   ├── page.module.css
+│   │   │   └── page.tsx
+│   │   ├── info
+│   │   │   ├── page.module.css
+│   │   │   └── page.tsx
+│   │   └── layout.tsx
+│   ├── components
+│   │   ├── customAlert
+│   │   │   └── CustomAlert.tsx
+│   │   ├── header
+│   │   │   ├── Header.module.css
+│   │   │   └── Header.tsx
+│   │   ├── textInput
+│   │   │   ├── TextInput.module.css
+│   │   │   └── TextInput.tsx
+│   │   └── themeRegistry
+│   │       └── ThemeRegistry.tsx
+│   ├── contexts
+│   │   └── GroupContext.tsx
+│   ├── data
+│   └── hooks
+└── tsconfig.json
+
+13 directories, 28 files
