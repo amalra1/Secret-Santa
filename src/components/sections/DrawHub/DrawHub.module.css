@@ -1,0 +1,38 @@
+.hub {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.summary {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.kicker {
+  color: var(--red);
+}
+
+.group {
+  font-size: clamp(2.75rem, 12vw, 5rem);
+  overflow-wrap: anywhere;
+  padding-top: 0.05em;
+}
+
+.panel {
+  min-width: 0;
+  padding-top: var(--space-4);
+  border-top: var(--border) solid var(--line);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  padding-top: var(--space-5);
+  border-top: var(--border) solid var(--line);
+}

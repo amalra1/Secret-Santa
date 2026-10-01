@@ -1,0 +1,9 @@
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--red);
+  border-bottom: 10px solid var(--bg);
+  visibility: hidden;
+  pointer-events: none;
+}

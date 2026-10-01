@@ -1,0 +1,92 @@
+.dialog {
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  color: var(--fg);
+  background: transparent;
+  overscroll-behavior: contain;
+}
+
+.dialog::backdrop {
+  background: rgba(15, 11, 11, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.dialog[open]::backdrop {
+  animation: fade var(--dur) var(--ease-out);
+}
+
+.sheet {
+  width: min(calc(100% - var(--gutter) * 2), 520px);
+  margin: auto;
+  overflow: visible;
+}
+
+.sheet .body {
+  position: relative;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  color: var(--bg);
+  background: var(--fg);
+  border: var(--border-thick) solid var(--fg);
+  box-shadow: 10px 10px 0 var(--red);
+}
+
+.sheet[open] .body {
+  animation: pop 0.45s var(--ease-out);
+}
+
+.full {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  inset: 0;
+  overflow-y: auto;
+}
+
+.full .body {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: calc(var(--space-5) + env(safe-area-inset-top)) var(--gutter)
+    calc(var(--space-5) + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(
+      120% 70% at 100% 0%,
+      rgba(181, 18, 27, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      90% 60% at 0% 100%,
+      rgba(181, 18, 27, 0.16),
+      transparent 60%
+    ),
+    var(--bg);
+}
+
+.full[open] .body {
+  animation: wipe 0.7s var(--ease-in-out);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotate(-1.5deg) scale(0.96);
+  }
+}
+
+@keyframes wipe {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}

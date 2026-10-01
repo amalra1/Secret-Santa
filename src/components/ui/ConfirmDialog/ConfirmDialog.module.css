@@ -1,0 +1,39 @@
+.glyph {
+  position: absolute;
+  top: calc(var(--space-4) * -1);
+  right: var(--space-4);
+  width: 56px;
+  height: 56px;
+  padding: 8px;
+  color: var(--fg);
+  background: var(--red);
+  rotate: 8deg;
+}
+
+.title {
+  font-size: var(--step-3);
+  overflow-wrap: anywhere;
+  padding-right: var(--space-6);
+}
+
+.description {
+  margin-top: var(--space-3);
+  max-width: 40ch;
+  color: rgba(15, 11, 11, 0.74);
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.actions > :last-child {
+  --shadow: var(--bg);
+  color: var(--bg);
+  border-color: var(--bg);
+}
+
+.actions > :first-child {
+  --shadow: var(--bg);
+}

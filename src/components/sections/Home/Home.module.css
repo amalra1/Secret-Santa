@@ -1,0 +1,91 @@
+.home {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-5);
+  padding: calc(var(--header-h) + env(safe-area-inset-top) + var(--space-4))
+    var(--gutter) var(--space-4);
+}
+
+.ticket {
+  --stub-width: 56px;
+  width: min(100%, 560px);
+  rotate: -1.5deg;
+}
+
+.stub {
+  padding-block: var(--space-4);
+}
+
+.stubGlyph {
+  width: 34px;
+  height: 34px;
+}
+
+.stubSpark {
+  width: 18px;
+  height: 18px;
+}
+
+.serial {
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  letter-spacing: 0.2em;
+}
+
+.body {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4) var(--space-4) var(--space-5);
+}
+
+.kicker {
+  color: rgba(15, 11, 11, 0.6);
+}
+
+.title {
+  font-size: clamp(2.75rem, 15vw, 5.5rem);
+  line-height: 0.92;
+}
+
+.title span {
+  display: block;
+}
+
+.accent {
+  color: var(--red);
+}
+
+.voucher {
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  line-height: 1;
+  color: var(--bg);
+  transform-origin: left center;
+}
+
+.tagline {
+  max-width: 34ch;
+  color: rgba(15, 11, 11, 0.74);
+}
+
+.cta {
+  --shadow: var(--bg);
+  margin-top: var(--space-3);
+}
+
+@media (min-width: 600px) {
+  .ticket {
+    --stub-width: 76px;
+    --notch: 16px;
+  }
+
+  .body {
+    padding: var(--space-6) var(--space-6) var(--space-5);
+  }
+
+  .stubGlyph {
+    width: 44px;
+    height: 44px;
+  }
+}

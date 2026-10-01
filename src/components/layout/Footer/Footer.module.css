@@ -1,0 +1,23 @@
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-3) var(--gutter)
+    calc(var(--space-3) + env(safe-area-inset-bottom));
+  border-top: var(--border) solid var(--line);
+  color: var(--fg-dim);
+}
+
+.link {
+  color: var(--fg);
+  background-image: linear-gradient(var(--red), var(--red));
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  background-position: left 100%;
+  transition: background-size var(--dur) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    background-size: 100% 2px;
+  }
+}

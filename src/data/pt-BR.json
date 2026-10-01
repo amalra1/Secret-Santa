@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "skip": "Pular para o conteúdo",
+    "language": "Switch to English",
+    "home": "Início do Amigo Secreto"
+  },
+  "header": {
+    "brand": "Amigo Secreto"
+  },
+  "footer": {
+    "madeBy": "Feito por",
+    "author": "Pedro Chapelin"
+  },
+  "home": {
+    "kicker": "Bilhete de sorteio",
+    "titleTop": "Amigo",
+    "titleBottom": "Secreto",
+    "voucher": "Vale um presente",
+    "tagline": "Sorteie os nomes e guarde o segredo. Sem cadastro.",
+    "start": "Começar sorteio",
+    "resume": "Voltar pra “{group}”",
+    "serial": "Nº 0001"
+  },
+  "wizard": {
+    "stepCounter": "Passo {current} de {total}",
+    "back": "Voltar",
+    "next": "Próximo",
+    "finish": "Sortear",
+    "optional": "opcional",
+    "group": {
+      "word": "O grupo",
+      "title": "Batize",
+      "description": "Família, firma, galera da academia. O nome aparece em toda revelação.",
+      "label": "Nome do grupo",
+      "placeholder": "Família Silva"
+    },
+    "people": {
+      "word": "A turma",
+      "title": "Quem joga?",
+      "description": "Digite um nome e aperte enter (ou o +) pra adicionar.",
+      "label": "Adicionar pessoa",
+      "placeholder": "Ana",
+      "add": "Adicionar",
+      "count": "{count} / {max} pessoas",
+      "minimum": "Pelo menos {min} pessoas pra sortear",
+      "empty": "Ninguém ainda. Comece por você.",
+      "remove": "Remover {name}",
+      "rename": "Nome da pessoa {index}",
+      "duplicate": "Nome repetido",
+      "alreadyIn": "{name} já está na lista",
+      "full": "Esse é o máximo: {max} pessoas"
+    },
+    "details": {
+      "word": "O combinado",
+      "title": "Regras da casa",
+      "description": "Tudo opcional. O que você preencher aparece na hora da revelação.",
+      "budget": "Valor do presente",
+      "budgetPlaceholder": "R$ 50",
+      "date": "Dia da revelação",
+      "datePlaceholder": "Escolha o dia",
+      "previousMonth": "Mês anterior",
+      "nextMonth": "Próximo mês",
+      "clearDate": "Limpar data",
+      "place": "Onde",
+      "placePlaceholder": "Casa da vó",
+      "note": "Um recado pra todos",
+      "notePlaceholder": "Meia não vale. É sério."
+    }
+  },
+  "draw": {
+    "word": "O sorteio",
+    "people": "{count} pessoas",
+    "budget": "Valor",
+    "date": "Revelação",
+    "place": "Onde",
+    "note": "Recado",
+    "phoneIntro": "Passe o celular de mão em mão. Cada pessoa toca no próprio nome, confirma que é ela e segura pra ver quem tirou.",
+    "progress": "{done} de {total} revelados",
+    "seen": "Visto",
+    "confirmTitle": "Você é {name}?",
+    "confirmText": "Confira se ninguém mais está olhando a tela.",
+    "confirmSeenText": "{name} já espiou. Confira se é mesmo a pessoa antes de mostrar de novo.",
+    "confirmYes": "Sim, sou eu",
+    "confirmNo": "Não",
+    "redo": "Refazer sorteio",
+    "redoTitle": "Sortear de novo?",
+    "redoText": "Todo mundo tira outra pessoa. Quem já viu vai precisar olhar de novo.",
+    "redoConfirm": "Sortear de novo",
+    "edit": "Editar grupo",
+    "newGroup": "Novo grupo",
+    "newGroupTitle": "Começar do zero?",
+    "newGroupText": "Isso apaga o grupo, as pessoas e o sorteio deste aparelho.",
+    "newGroupConfirm": "Apagar tudo",
+    "cancel": "Cancelar",
+    "redone": "Novo sorteio. Todo mundo tirou outra pessoa.",
+    "doneKicker": "Fim do sorteio",
+    "doneTitle": "Todo mundo já sabe!",
+    "doneWish": "Boa troca",
+    "doneDays": "Faltam {days} dias pra revelação.",
+    "doneTomorrow": "A revelação é amanhã!",
+    "doneToday": "A revelação é hoje!",
+    "donePast": "A revelação foi em {date}.",
+    "doneNoDate": "Agora é só esperar o dia da revelação.",
+    "doneAgain": "Alguém esqueceu? Toque no nome pra ver de novo."
+  },
+  "reveal": {
+    "greeting": "Oi, {name}",
+    "kicker": "Seu amigo secreto em",
+    "notYou": "Não é {name}? Voltar",
+    "hold": "Segure pra revelar",
+    "holding": "Continue segurando…",
+    "holdHint": "Pressione e segure o botão",
+    "youGot": "Você tirou",
+    "hide": "Esconder e passar o celular",
+    "keepSecret": "Shh. Guarde pra você."
+  }
+}

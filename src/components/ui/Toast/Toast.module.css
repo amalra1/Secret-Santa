@@ -1,0 +1,39 @@
+.region {
+  position: fixed;
+  left: 50%;
+  bottom: calc(
+    var(--toast-offset, var(--space-4)) + env(safe-area-inset-bottom)
+  );
+  z-index: 150;
+  width: min(calc(100% - var(--gutter) * 2), 420px);
+  translate: -50% 0;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  padding: 0.9em 1em;
+  color: var(--bg);
+  background: var(--fg);
+  box-shadow: 6px 6px 0 var(--red);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  animation: slip 0.5s var(--ease-out);
+}
+
+.mark {
+  flex-shrink: 0;
+  width: 0.7em;
+  height: 0.7em;
+  background: var(--red);
+  rotate: 45deg;
+}
+
+@keyframes slip {
+  from {
+    opacity: 0;
+    transform: translateY(16px) rotate(-2deg);
+  }
+}

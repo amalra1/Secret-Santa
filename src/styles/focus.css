@@ -1,0 +1,8 @@
+:focus-visible {
+  outline: var(--border-thick) solid var(--red);
+  outline-offset: 4px;
+}
+
+.band-red :focus-visible {
+  outline-color: var(--fg);
+}

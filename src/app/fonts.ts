@@ -1,12 +1,30 @@
-import { Poppins, Inter } from 'next/font/google';
+import { Anton, Archivo, JetBrains_Mono, New_Rocker } from 'next/font/google';
 
-export const poppins = Poppins({
+export const display = Anton({
+  weight: '400',
   subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-poppins',
+  display: 'swap',
+  variable: '--font-display',
 });
 
-export const inter = Inter({
+export const sans = Archivo({
   subsets: ['latin'],
-  variable: '--font-inter',
+  axes: ['wdth'],
+  display: 'swap',
+  variable: '--font-sans',
 });
+
+export const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+});
+
+export const gothic = New_Rocker({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-gothic',
+});
+
+export const fontClassNames = `${display.variable} ${sans.variable} ${mono.variable} ${gothic.variable}`;

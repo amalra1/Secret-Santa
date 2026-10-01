@@ -1,0 +1,70 @@
+.ticket {
+  --notch: 12px;
+  --stub-width: 64px;
+  --paper: var(--fg);
+  --ink: var(--bg);
+  --stub-paper: var(--red);
+  --stub-ink: var(--fg);
+  display: flex;
+  color: var(--ink);
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.45));
+}
+
+.stub,
+.body {
+  display: block;
+  background: var(--paper);
+}
+
+.stub {
+  flex: 0 0 var(--stub-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  color: var(--stub-ink);
+  background: var(--stub-paper);
+  mask:
+    radial-gradient(
+        circle at 100% 0,
+        #0000 var(--notch),
+        #000 calc(var(--notch) + 0.5px)
+      )
+      top / 100% 51% no-repeat,
+    radial-gradient(
+        circle at 100% 100%,
+        #0000 var(--notch),
+        #000 calc(var(--notch) + 0.5px)
+      )
+      bottom / 100% 51% no-repeat;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  mask:
+    radial-gradient(
+        circle at 0 0,
+        #0000 var(--notch),
+        #000 calc(var(--notch) + 0.5px)
+      )
+      top / 100% 51% no-repeat,
+    radial-gradient(
+        circle at 0 100%,
+        #0000 var(--notch),
+        #000 calc(var(--notch) + 0.5px)
+      )
+      bottom / 100% 51% no-repeat;
+}
+
+.body::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--notch) + 4px);
+  bottom: calc(var(--notch) + 4px);
+  left: 0;
+  border-left: 2px dashed color-mix(in srgb, var(--ink) 30%, transparent);
+}

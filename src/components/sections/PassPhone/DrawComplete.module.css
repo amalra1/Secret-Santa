@@ -1,0 +1,57 @@
+.complete {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  animation: arrive 0.7s var(--ease-out);
+}
+
+.ticket {
+  --stub-width: 56px;
+  width: min(100%, 520px);
+  rotate: -1deg;
+}
+
+.crown {
+  width: 30px;
+  height: 30px;
+  margin-block: auto;
+}
+
+.body {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
+}
+
+.kicker {
+  color: rgba(15, 11, 11, 0.6);
+}
+
+.title {
+  font-size: clamp(2.2rem, 10vw, 3.5rem);
+  line-height: 0.95;
+}
+
+.wish {
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  line-height: 1;
+  color: var(--red);
+}
+
+.countdown {
+  font-weight: 600;
+}
+
+.again {
+  color: var(--fg-dim);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-24px) rotate(3deg);
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "skip": "Skip to content",
+    "language": "Mudar para português",
+    "home": "Secret Santa home"
+  },
+  "header": {
+    "brand": "Secret Santa"
+  },
+  "footer": {
+    "madeBy": "Made by",
+    "author": "Pedro Chapelin"
+  },
+  "home": {
+    "kicker": "Draw ticket",
+    "titleTop": "Secret",
+    "titleBottom": "Santa",
+    "voucher": "Good for one gift",
+    "tagline": "Draw names, keep the secret. No sign-up.",
+    "start": "Start a draw",
+    "resume": "Back to “{group}”",
+    "serial": "Nº 0001"
+  },
+  "wizard": {
+    "stepCounter": "Step {current} of {total}",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Draw names",
+    "optional": "optional",
+    "group": {
+      "word": "The group",
+      "title": "Name it",
+      "description": "Family, office, the climbing gym. It shows up on every reveal.",
+      "label": "Group name",
+      "placeholder": "Silva Family"
+    },
+    "people": {
+      "word": "The crew",
+      "title": "Who’s in?",
+      "description": "Type a name and hit enter (or +) to add it.",
+      "label": "Add a person",
+      "placeholder": "Ana",
+      "add": "Add",
+      "count": "{count} / {max} people",
+      "minimum": "At least {min} people to draw",
+      "empty": "Nobody yet. Start with yourself.",
+      "remove": "Remove {name}",
+      "rename": "Name of person {index}",
+      "duplicate": "Same name twice",
+      "alreadyIn": "{name} is already in",
+      "full": "That’s the max: {max} people"
+    },
+    "details": {
+      "word": "The deal",
+      "title": "House rules",
+      "description": "All optional. Whatever you fill in shows up when people reveal.",
+      "budget": "Gift budget",
+      "budgetPlaceholder": "$30",
+      "date": "Reveal day",
+      "datePlaceholder": "Pick a day",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "clearDate": "Clear date",
+      "place": "Where",
+      "placePlaceholder": "Grandma’s house",
+      "note": "A note for everyone",
+      "notePlaceholder": "No socks. We mean it."
+    }
+  },
+  "draw": {
+    "word": "The draw",
+    "people": "{count} people",
+    "budget": "Budget",
+    "date": "Reveal day",
+    "place": "Where",
+    "note": "Note",
+    "phoneIntro": "Hand the phone around. Each person taps their own name, confirms it’s them and holds to see who they got.",
+    "progress": "{done} of {total} revealed",
+    "seen": "Seen",
+    "confirmTitle": "Are you {name}?",
+    "confirmText": "Make sure nobody else is looking at the screen.",
+    "confirmSeenText": "{name} already peeked. Make sure it’s really them before showing it again.",
+    "confirmYes": "Yes, it’s me",
+    "confirmNo": "Nope",
+    "redo": "Redo draw",
+    "redoTitle": "Draw again?",
+    "redoText": "Everyone gets a new person. Whoever already peeked will need to look again.",
+    "redoConfirm": "Draw again",
+    "edit": "Edit group",
+    "newGroup": "New group",
+    "newGroupTitle": "Start from scratch?",
+    "newGroupText": "This clears the group, the people and the draw from this device.",
+    "newGroupConfirm": "Clear everything",
+    "cancel": "Cancel",
+    "redone": "Fresh draw. Everyone got someone new.",
+    "doneKicker": "End of the draw",
+    "doneTitle": "Everyone knows!",
+    "doneWish": "Happy swapping",
+    "doneDays": "{days} days until reveal day.",
+    "doneTomorrow": "Reveal day is tomorrow!",
+    "doneToday": "Reveal day is today!",
+    "donePast": "Reveal day was {date}.",
+    "doneNoDate": "Now just wait for reveal day.",
+    "doneAgain": "Someone forgot? Tap their name to see it again."
+  },
+  "reveal": {
+    "greeting": "Hey {name}",
+    "kicker": "Your Secret Santa for",
+    "notYou": "Not {name}? Go back",
+    "hold": "Hold to reveal",
+    "holding": "Keep holding…",
+    "holdHint": "Press and hold the button",
+    "youGot": "You’re gifting",
+    "hide": "Hide & pass the phone",
+    "keepSecret": "Shh. Keep it to yourself."
+  }
+}

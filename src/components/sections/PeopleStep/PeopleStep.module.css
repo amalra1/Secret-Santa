@@ -1,0 +1,163 @@
+.people {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.composer {
+  display: flex;
+}
+
+.composer > input {
+  flex: 1;
+  min-width: 0;
+}
+
+.add {
+  flex-shrink: 0;
+  width: 56px;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--bg);
+  background: var(--red);
+  border: 2px solid var(--red);
+  transition:
+    opacity var(--dur-fast),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.add:disabled {
+  opacity: 0.36;
+  cursor: not-allowed;
+}
+
+.add:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  color: var(--fg-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.minimum {
+  color: var(--fg);
+}
+
+.minimum::before {
+  content: '';
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  margin-right: 0.6em;
+  background: var(--red);
+}
+
+.empty {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-4);
+  color: var(--fg-dim);
+  text-align: center;
+  border: 2px dashed var(--line);
+}
+
+.emptyGlyph {
+  width: 64px;
+  height: 64px;
+  color: var(--red);
+  opacity: 0.8;
+}
+
+.list {
+  display: grid;
+  border-top: var(--border) solid var(--line);
+}
+
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 60px;
+  padding-left: var(--space-2);
+  border-bottom: var(--border) solid var(--line);
+  transition: background-color var(--dur-fast);
+}
+
+.row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--red);
+  transform: scaleY(0);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.row:focus-within {
+  background: var(--bg-2);
+}
+
+.row:focus-within::before,
+.duplicate::before {
+  transform: scaleY(1);
+}
+
+.index {
+  flex-shrink: 0;
+  width: 2ch;
+  color: var(--red);
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  min-height: 56px;
+  padding: 0;
+  font-size: max(16px, var(--step-1));
+  background: none;
+  border: 0;
+  outline: none;
+}
+
+.tag {
+  flex-shrink: 0;
+  padding: 0.3em 0.6em;
+  color: var(--fg);
+  border: var(--border) solid var(--red);
+  text-transform: none;
+}
+
+.remove {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: var(--fg-dim);
+  transition:
+    color var(--dur-fast),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.remove:active {
+  transform: scale(0.88);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover {
+    background: var(--bg-2);
+  }
+
+  .remove:hover {
+    color: var(--fg);
+    transform: rotate(90deg);
+  }
+}

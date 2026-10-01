@@ -1,0 +1,23 @@
+.burst {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.glyph {
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  max-width: none;
+  height: 36px;
+  color: var(--red);
+  visibility: hidden;
+}
+
+.light {
+  color: var(--bg);
+}

@@ -1,0 +1,150 @@
+.card {
+  width: min(100%, 560px);
+}
+
+.ticket {
+  --stub-width: 48px;
+  min-height: 520px;
+}
+
+.stub {
+  padding-block: var(--space-4);
+}
+
+.stubGlyph {
+  width: 30px;
+  height: 30px;
+}
+
+.stubSpark {
+  width: 16px;
+  height: 16px;
+}
+
+.stubText {
+  max-height: 60%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  letter-spacing: 0.16em;
+}
+
+.body {
+  display: grid;
+  align-content: center;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4) var(--space-5) var(--space-5);
+}
+
+.kicker {
+  text-align: center;
+  color: rgba(15, 11, 11, 0.62);
+  overflow-wrap: anywhere;
+}
+
+.kicker strong {
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.greeting {
+  font-size: clamp(2.4rem, 11vw, 4rem);
+  line-height: 1.05;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.locked,
+.result {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: center;
+  text-align: center;
+}
+
+.mystery {
+  font-size: clamp(7rem, 40vw, 12rem);
+  line-height: 0.9;
+  color: var(--red);
+}
+
+.notYou {
+  min-height: 44px;
+  max-width: 34ch;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  color: rgba(15, 11, 11, 0.62);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.label {
+  color: rgba(15, 11, 11, 0.62);
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+}
+
+.receiver {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(3rem, 16vw, 6.5rem);
+  color: var(--red);
+  overflow-wrap: break-word;
+  rotate: -3deg;
+  text-shadow: 4px 4px 0 var(--bg);
+}
+
+.longName {
+  font-size: clamp(2.2rem, 10vw, 4rem);
+}
+
+.details {
+  justify-items: center;
+}
+
+.details dl {
+  justify-content: center;
+}
+
+.details blockquote {
+  text-align: left;
+}
+
+.secret {
+  color: rgba(15, 11, 11, 0.62);
+}
+
+.done {
+  --shadow: var(--red);
+}
+
+.result > :not(.stage) {
+  animation: rise 0.6s var(--ease-out) 0.4s both;
+}
+
+.result > :nth-child(n + 4) {
+  animation-delay: 0.55s;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 20px;
+  }
+}
+
+@media (min-width: 600px) {
+  .ticket {
+    --stub-width: 72px;
+    --notch: 16px;
+  }
+
+  .body {
+    padding-inline: var(--space-6);
+  }
+}

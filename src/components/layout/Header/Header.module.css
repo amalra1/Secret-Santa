@@ -1,0 +1,59 @@
+.header {
+  --ink: var(--fg);
+  --accent: var(--red);
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: calc(var(--header-h) + env(safe-area-inset-top));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: env(safe-area-inset-top) var(--gutter) 0;
+  color: var(--ink);
+  background: transparent;
+  transition:
+    background-color var(--dur),
+    color var(--dur),
+    backdrop-filter var(--dur);
+}
+
+.scrolled {
+  background: rgba(15, 11, 11, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  color: var(--ink);
+}
+
+.sunWrap {
+  display: block;
+}
+
+.sun {
+  width: calc(var(--step-1) * 1.5);
+  height: auto;
+  color: var(--accent);
+  transition: color var(--dur);
+}
+
+.name {
+  color: inherit;
+}
+
+.toggle {
+  --fg: var(--ink);
+  --fg-dim: color-mix(in srgb, var(--ink) 62%, transparent);
+  --fg-faint: color-mix(in srgb, var(--ink) 40%, transparent);
+  --red: var(--accent);
+}
+
+.toggle button {
+  min-height: 44px;
+}

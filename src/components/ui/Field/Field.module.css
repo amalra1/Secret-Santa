@@ -1,0 +1,91 @@
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.label {
+  color: var(--fg-dim);
+}
+
+.optional {
+  color: var(--fg-faint);
+  text-transform: lowercase;
+}
+
+.counter {
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.control {
+  width: 100%;
+  min-height: 56px;
+  padding: 0.7em 0.85em;
+  font: inherit;
+  font-size: max(16px, var(--step-1));
+  color: var(--fg);
+  background: var(--bg-2);
+  border: 2px solid var(--fg-faint);
+  border-radius: 0;
+  outline: none;
+  appearance: none;
+  transition:
+    border-color var(--dur-fast),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+textarea.control {
+  min-height: 7.5em;
+  resize: vertical;
+  font-size: max(16px, var(--step-0));
+  line-height: 1.45;
+}
+
+.control::placeholder {
+  color: var(--fg-faint);
+}
+
+.control:focus-visible,
+.control:focus {
+  border-color: var(--fg);
+  box-shadow: 5px 5px 0 var(--red);
+  transform: translate(-2px, -2px);
+}
+
+.control::-webkit-calendar-picker-indicator {
+  filter: invert(0.9);
+  cursor: pointer;
+}
+
+.invalid .control {
+  border-color: var(--red);
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--fg-dim);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.error {
+  color: var(--fg);
+}
+
+.error::before {
+  content: '';
+  flex-shrink: 0;
+  width: 0.6em;
+  height: 0.6em;
+  background: var(--red);
+}
